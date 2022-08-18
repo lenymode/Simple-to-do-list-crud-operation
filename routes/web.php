@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DataController;
-use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,24 +13,12 @@ use App\Http\Controllers\Controller;
 |
 */
 
-
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-
-
-// Home-Route
-Route::get('/', [DataController::class, 'home'])->name('home');
-
-// add-activities
-Route::post('/store', [DataController::class, 'store'])->name('store');
-// update-activities
-Route::put('/update{data}', [DataController::class, 'update'])->name('update');
-
-// button-routing
-Route::get('/edit{data}', [DataController::class, 'edit'])->name('edit');
-Route::get('/confirm{data}', [DataController::class, 'confirm'])->name('confirm');
-Route::post('/delete{data}', [DataController::class, 'cut'])->name('cut');

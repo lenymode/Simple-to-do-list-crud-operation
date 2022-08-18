@@ -66,8 +66,11 @@ class DataController extends Controller
 
 // update
     public function edit(Data $data)
-    {  
+    {  if (Gate::allows('isAdmin','isEditor'))
+        {
         return view('edit',compact('data'));
+        }
+        else { dd('You have no permission!');}
     }
 
 
@@ -87,8 +90,7 @@ class DataController extends Controller
 
     // searchbar-------------
     public function search(Request $request)
-    {
-      
+    {      
        Data::query()
         ->where('data', 'LIKE', "%{$search}%") 
         ->get();
